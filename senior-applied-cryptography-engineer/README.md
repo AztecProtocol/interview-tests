@@ -1,11 +1,11 @@
-# Senior Applied Cryptographer Test
+# Applied Cryptographer Test
 
 **WARNING: Do not fork this repository or make a public repository containing your solution. Either copy it to a private repository or submit your solution via other means.**
 
 Links to solutions may be sent to hello@aztecprotocol.com.
 
 ---
-This is a test for our prospective senior applied cryptography engineers. 
+This is a test for our prospective applied cryptography engineers. 
 
 These questions are a drawn from real topics and problems we've encountered at Aztec. They are representative of the kind of work you will be involved in as part of our team.
 
