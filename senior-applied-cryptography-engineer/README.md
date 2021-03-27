@@ -82,7 +82,7 @@ Both inputs and outputs are allowed to be in an 'unreduced' form, where a factor
 
 Registers`%rax, %rbx, %rcx` contain references to `a, b, c` respectively.
 
-**a) Spot the error in this code. Why is it incorrect and what is the fix?**
+**a) Spot the error in this code. Why is it incorrect and what is the fix?**  
 **b) Can you improve the performance of this code? You cannot use additional registers.**
 
 
