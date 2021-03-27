@@ -73,7 +73,7 @@ The performance of `affine_add` degrades if `num_points` is small.
 
 
 ---
-#### Question 4
+#### (harder/bonus) Question 4
 The following C++ code implements a [Montgomery modular multiplication](https://en.wikipedia.org/wiki/Montgomery_modular_multiplication) over a 254-bit prime field for x86/64 CPUs with the [BMI2](https://en.wikipedia.org/wiki/Bit_manipulation_instruction_set) instruction set. Field elements are stored in 4 64-bit 'limbs'. 
 
 Operation is Montgomery-form equivalent of <img src="https://render.githubusercontent.com/render/math?math=a * b = c \text{ mod } q">, where `q` is defined by `T::modulus`.
