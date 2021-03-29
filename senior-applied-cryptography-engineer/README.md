@@ -63,6 +63,7 @@ The performance of `affine_add` degrades if `num_points` is small.
 * ii) For each bucket, use `affine_add` to accumulate the bucket points into a single output point
 
 **b) Assuming a prime-field multiplication takes 17ns and `affine_add` uses 6 of these per point pair, what is the likely performance bottleneck on a 16-core CPU, if each core is executing this algorithm?**
+
 **c) To our knowledge, no other implementations of Pippenger accumulate bucket points using the type of pair-wise addition in `affine_add` (instead they iterate over the bucket points and add them successively into an accumulator point). Why do we do the above instead?**
 
 ---
