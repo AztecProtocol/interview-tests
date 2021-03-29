@@ -16,9 +16,9 @@ Your core proficiencies may not align  with what is needed to answer all questio
 
 **The Plonk permutation argument is described in section 5 of the [paper](https://eprint.iacr.org/2019/953.pdf).**
 
-a) Read the first protocol described in Section 5 (page 20). Suppose we fixed <img src="https://render.githubusercontent.com/render/math?math=\beta=1"> in the protocol instead of choosing it randomly. Suppose we fix <img src="https://render.githubusercontent.com/render/math?math=n=4">. Give an example of a permutation <img src="https://render.githubusercontent.com/render/math?math=\sigma:[4]\to [4]">, and a pair of polynomials f,g not satisfying <img src="https://render.githubusercontent.com/render/math?math=g=\sigma(f)">, but still causing the verifier to accept. Explain why the example works.
+a) Read the first protocol described in Section 5 (page 20). Suppose we fixed <img src="https://render.githubusercontent.com/render/math?math=\beta=1"> in the protocol instead of choosing it randomly (and kept <img src="https://render.githubusercontent.com/render/math?math=\gamma"> uniformly chosen as in the protocol). Suppose we fix <img src="https://render.githubusercontent.com/render/math?math=n=4">. Give an example of a permutation <img src="https://render.githubusercontent.com/render/math?math=\sigma:[4]\to [4]">, and a pair of polynomials f,g not satisfying <img src="https://render.githubusercontent.com/render/math?math=g=\sigma(f)">, but still causing the verifier to accept with high probability. Explain why the example works.
 
-b) (harder/bonus) Same question when fixing <img src="https://render.githubusercontent.com/render/math?math=\gamma=0"> instead.
+b) (harder/bonus) Same question when fixing <img src="https://render.githubusercontent.com/render/math?math=\gamma=0"> instead and uniform <img src="https://render.githubusercontent.com/render/math?math=\beta">.
 
 ---
 #### Question 2
