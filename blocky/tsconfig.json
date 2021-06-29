@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "es6",
+    "lib": ["es2020", "dom"],
+    "moduleResolution": "node",
+    "jsx": "react",
+    "noEmit": true,
+    "strict": true,
+    "esModuleInterop": true
+  }
+}
