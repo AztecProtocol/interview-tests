@@ -129,16 +129,6 @@ yarn start
 
 ## Time Considerations
 
-You can take two approaches to the test. In either approach we don't expect the algorithm to have been optimised for high data throughput, but include a description any optimisations you can think of, that could enable the system to scale to thousands of entries per block.
-
-#### 1. Time Boxed
-
-We'll have agreed up front the amount of time you want to commit to the test (usually about a day). You don't have to complete all of it, and if we're happy with what we see in the time given, we will continue working on your solution in the code pairing session.
-
-Prioritise the merkle tree implementation over the server implementation, but what you don't implement should instead have a description of what you _would_ implement given more time.
-
-#### 2. Open Ended
-
 Take as long as you want, within reason. We expect a fully working server that you would be happy to deploy to production, assuming low data throughput.
 
 ## Advanced Mode

@@ -15,9 +15,13 @@ Navigate to `http://localhost:8080`.
 
 `yarn test` or `yarn test --watch` to run the unit tests on the terminal.
 
-## Step 1
+## Time
 
-Implement `clicked` to remove all blocks of the same colour that are connected to the target element, then allow the blocks above the removed to "fall down" (similar to Tetris but you should click a block to have connected blocks removed).
+It's expected you take no more than half a day. If you complete the algorithm sooner, feel free to be creative to improve the game further.
+
+## Task
+
+Implement `clicked` to remove all blocks of the same colour that are connected to the target element, then allow the blocks above the removed to "fall down".
 
 E.g. given:
 
@@ -26,7 +30,3 @@ E.g. given:
 After clicking one of the bottom right blue boxes it should then look like this:
 
 ![state 2](https://trottski.s3.amazonaws.com/snaps/stage2.jpg)
-
-## Step 2
-
-Improve the game as you see fit. Take as long as you like, be as creative as you like. Demonstrate what you can do.
