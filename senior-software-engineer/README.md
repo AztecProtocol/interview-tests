@@ -130,7 +130,3 @@ yarn start
 ## Time Considerations
 
 Take as long as you want, within reason. We expect a fully working server that you would be happy to deploy to production, assuming low data throughput.
-
-## Advanced Mode
-
-If you really want to go the extra mile, an implementation of a `WorldStateDb` has been provided (`ExternalWorldStateDb`) which will communicate with an external binary over stdin/stdout. This will allow you to demonstrate some skills around serializing data and systems level programming. `C++` is our primary systems level language today, so is preferred, but `Rust` will also be accepted.
