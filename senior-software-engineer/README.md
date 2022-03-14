@@ -86,15 +86,11 @@ The `leafData` in a `Block` is to be inserted incrementally into the tree starti
 
 Pay attention to any comments in code for further implementation details.
 
-## Client Considerations
-
-Any client application should be able to interact with the server via a `HashPathSource`.
-
 ## Merkle Tree Structure
 
 - The merkle tree is of depth `32`, and is fully pre-populated with leaves consisting of `64` zero bytes at every index.
-- When inserting an element of arbitrary length, the value must first (internally) be compressed to `32` bytes using sha256.
-- Each node of the tree is computed by concatenating its left and right subtree hashes and taking the resulting sha256 hash.
+- When inserting an element of arbitrary length, the value must first (internally) be `hash`ed to `32` bytes using sha256.
+- Each node of the tree is computed by `compress`ing its left and right subtree hashes and taking the resulting sha256 hash.
 - For reference, an unpopulated merkle tree will have a root hash of `1c9a7e5ff1cf48b4ad1582d3f4e4a1004f3b20d8c5a2b71387a4254ad933ebc5`.
 - The `size` of a merkle tree is always determined by its highest index element.
 
@@ -126,7 +122,3 @@ yarn test ./src/server.test.ts --watch
 # To run the server.
 yarn start
 ```
-
-## Time Considerations
-
-Take as long as you want, within reason. We expect a fully working server that you would be happy to deploy to production, assuming low data throughput.

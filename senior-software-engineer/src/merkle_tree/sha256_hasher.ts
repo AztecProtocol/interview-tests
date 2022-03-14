@@ -6,10 +6,12 @@ import { Hasher } from './hasher';
  */
 export class Sha256Hasher implements Hasher {
   compress(lhs: Buffer, rhs: Buffer): Buffer {
-    return Buffer.alloc(0);
+    return createHash('sha256')
+      .update(Buffer.concat([lhs, rhs]))
+      .digest();
   }
 
   hash(data: Buffer): Buffer {
-    return Buffer.alloc(0);
+    return createHash('sha256').update(data).digest();
   }
 }

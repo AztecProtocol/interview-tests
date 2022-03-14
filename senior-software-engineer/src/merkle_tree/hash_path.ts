@@ -10,10 +10,19 @@ export class HashPath {
   /**
    * Creates a new `HashPath` instance from a buffer previously created from `toBuffer`.
    */
-  static fromBuffer(buf: Buffer) {}
+  static fromBuffer(buf: Buffer) {
+    return new HashPath(
+      [...new Array(buf.length / 64)].map((_, i) => [
+        buf.slice(i * 2 * 32, i * 2 * 32 + 32),
+        buf.slice(i * 2 * 32 + 32, i * 2 * 32 + 64),
+      ]),
+    );
+  }
 
   /**
-   * Validates (returns true or false), that the merkle tree represented by `root`, constains `leafData` at `index`.
+   * Validates (returns true or false), that the merkle tree represented by `root`, contains `leafData` at `index`.
    */
-  validate(root: Buffer, index: number, leafData: Buffer, hasher = new Sha256Hasher()) {}
+  validate(root: Buffer, index: number, leafData: Buffer, hasher = new Sha256Hasher()) {
+    // Implement
+  }
 }

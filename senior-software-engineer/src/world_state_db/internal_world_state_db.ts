@@ -33,7 +33,6 @@ export class InternalWorldStateDb implements WorldStateDb {
   }
 
   async put(index: number, value: Buffer) {
-    await this.tree.updateElement(index, value);
-    return this.getRoot();
+    return await this.tree.updateElement(index, value);
   }
 }

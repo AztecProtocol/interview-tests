@@ -9,6 +9,7 @@ import levelup from 'levelup';
 import leveldown from 'leveldown';
 import { InternalWorldStateDb } from './world_state_db';
 import { LocalBlockSource } from './block_source/local_block_source';
+import { FileServerStateDb } from './server_state';
 
 const { PORT = '8080', API_PREFIX = '' } = process.env;
 
@@ -21,10 +22,11 @@ async function main() {
   const db = levelup(leveldown('./data/world_state.db'));
   const worldStateDb = new InternalWorldStateDb(db);
   const blockSource = new LocalBlockSource('./data/blocks');
+  const serverStateDb = new FileServerStateDb('./data/server_state');
 
   await worldStateDb.init();
 
-  const server = new Server(worldStateDb, blockSource);
+  const server = new Server(worldStateDb, serverStateDb, blockSource);
   await server.start();
 
   const app = appFactory(server, API_PREFIX);

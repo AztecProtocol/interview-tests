@@ -29,7 +29,6 @@
   },
   "dependencies": {
     "@koa/cors": "^3.0.0",
-    "bigint-buffer": "^1.1.5",
     "detect-node": "^2.0.4",
     "fs-extra": "9.0.1",
     "koa": "^2.7.0",
@@ -40,7 +39,7 @@
     "levelup": "^4.4.0",
     "log-timestamp": "^0.3.0",
     "memdown": "^5.1.0",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "2.6.1",
     "promise-readable": "^6.0.0",
     "reflect-metadata": "^0.1.13",
     "typescript": "^3.5.3"

@@ -75,7 +75,7 @@ describe('merkle_tree', () => {
     }
 
     const db2 = levelup(levelDown);
-    const tree2 = await MerkleTree.fromName(db2, hasher, 'test');
+    const tree2 = await MerkleTree.new(db2, hasher, 'test');
 
     expect(tree.getRoot().toString('hex')).toBe('4b8404d05a963de56f7212fbf8123204b1eb77a4cb16ae3875679a898aaa5daa');
     expect(tree.getRoot()).toEqual(tree2.getRoot());
