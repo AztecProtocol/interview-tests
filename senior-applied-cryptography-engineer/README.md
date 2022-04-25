@@ -22,6 +22,7 @@ b) Same question when fixing <img src="https://render.githubusercontent.com/rend
 
 
 c) If we restrict the prover to always using f=g, does fixing <img src="https://render.githubusercontent.com/render/math?math=\gamma=0"> still allow them to cheat? If not, give a proof sketch explaining why. (_Hint: reduce to Schwartz-Zippel on monic polynomials, by factoring out a common term in both aggregating products._) 
+
 ---
 #### Question 2
 
