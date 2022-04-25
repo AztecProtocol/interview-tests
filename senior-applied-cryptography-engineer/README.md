@@ -18,8 +18,10 @@ Your core proficiencies may not align  with what is needed to answer all questio
 
 a) Read the first protocol described in Section 5 (page 20). Suppose we fixed <img src="https://render.githubusercontent.com/render/math?math=\beta=1"> in the protocol instead of choosing it randomly (and kept <img src="https://render.githubusercontent.com/render/math?math=\gamma"> uniformly chosen as in the protocol). Suppose we fix <img src="https://render.githubusercontent.com/render/math?math=n=4">. Give an example of a permutation <img src="https://render.githubusercontent.com/render/math?math=\sigma:[4]\to [4]">, and a pair of polynomials f,g not satisfying <img src="https://render.githubusercontent.com/render/math?math=g=\sigma(f)">, but still causing the verifier to accept with high probability. Explain why the example works.
 
-b) (harder/bonus) Same question when fixing <img src="https://render.githubusercontent.com/render/math?math=\gamma=0"> instead and uniform <img src="https://render.githubusercontent.com/render/math?math=\beta">.
+b) Same question when fixing <img src="https://render.githubusercontent.com/render/math?math=\gamma=0"> instead and uniform <img src="https://render.githubusercontent.com/render/math?math=\beta">.
 
+
+c) If we restrict the prover to always using f=g, does fixing <img src="https://render.githubusercontent.com/render/math?math=\gamma=0"> still allow them to cheat? If not, give a proof sketch explaining why. (_Hint: reduce to Schwartz-Zippel on monic polynomials, by factoring out a common term in both aggregating products._) 
 ---
 #### Question 2
 
