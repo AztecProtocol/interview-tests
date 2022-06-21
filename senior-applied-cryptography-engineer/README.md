@@ -20,8 +20,6 @@ a) Read the first protocol described in Section 5 (page 20). Suppose we fixed <i
 
 b) Same question when fixing <img src="https://render.githubusercontent.com/render/math?math=\gamma=0"> instead and uniform <img src="https://render.githubusercontent.com/render/math?math=\beta">.
 
-c) In this question we explore whether $\beta$ and $\gamma$ are both necessary.
-
 
 
 ---
