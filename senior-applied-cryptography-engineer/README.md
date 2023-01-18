@@ -2,7 +2,7 @@
 
 **WARNING: Do not fork this repository or make a public repository containing your solution. Either copy it to a private repository or submit your solution via other means.**
 
-Links to solutions may be sent to hello@aztecprotocol.com.
+Links to solutions may be sent to travis@aztecprotocol.com.
 
 ---
 This is a test for our prospective applied cryptography engineers. 
