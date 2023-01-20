@@ -25,7 +25,7 @@ b) Same question when fixing <img src="https://render.githubusercontent.com/rend
 ---
 #### Question 2
 
-In [our implementation](https://github.com/AztecProtocol/barretenberg/tree/master/cpp/src/aztec/ecc/curves/bn254/scalar_multiplication) of [Pippenger's multi-exponentiation algorithm](https://jbootle.github.io/Misc/pippenger.pdf) for BN254 elliptic curve points we add points in pairs in affine form in the function *add_affine_points*. To our knowledge not many other implementations of Pippenger accumulate bucket points using the type of pair-wise addition (instead they iterate over the bucket points and add them successively into an accumulator point). **Why do we do the above instead?**
+In [our implementation](https://github.com/AztecProtocol/barretenberg/tree/master/cpp/src/aztec/ecc/curves/bn254/scalar_multiplication) of [Pippenger's multi-exponentiation algorithm](https://jbootle.github.io/Misc/pippenger.pdf) for BN254 elliptic curve points we add points in pairs in affine form in the function *add_affine_points*. To our knowledge not many other implementations of Pippenger accumulate bucket points using this type of pair-wise addition (instead they iterate over the bucket points and add them successively into an accumulator point). **Why do we do the above instead?**
 
 ---
 #### Question 3
