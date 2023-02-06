@@ -26,6 +26,7 @@ else()
 endif()
 
 add_subdirectory(indexed_merkle_tree)
+add_subdirectory(fk_trick)
 
 if(BENCHMARKS)
     add_subdirectory(benchmark)
