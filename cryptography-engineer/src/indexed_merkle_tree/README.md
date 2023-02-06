@@ -22,9 +22,9 @@ where $i_{\textsf{next}}$ is the index of the leaf with the next higher value $v
    ![second](../../dependencies/images/1.jpg)
 3. Add a new value $v=10$
    ![third](../../dependencies/images/2.jpg)
-4. Add a new value $v=50$
+4. Add a new value $v=20$
    ![forth](../../dependencies/images/3.jpg)
-5. Add a new value $v=20$
+5. Add a new value $v=50$
    ![fifth](../../dependencies/images/4.jpg)
 
 #### Exercise
