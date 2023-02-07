@@ -7,10 +7,12 @@ Hi there! Welcome to the `ec_fft` test that you are about to take. We will guide
 Universal zk-SNARKs like PlonK need to run a one-time trusted setup ceremony to generate a Structured Reference String (SRS). Any number of participants can participate in this ceremony but only _one_ of all the participants need to be _honest_. As a part of this ceremony, each participant contributes to the setup with their own _secret_ which they are free to choose. Even if one of the participants generates this secret randomly and destroy it successfully, the setup ceremony is considered to be successful. The output of the setup ceremony is a structure reference string of the form:
 
 $$
+\begin{aligned}
 \mathbb{G}_1 \text{ points: }
-\left\{[1]_1,[x]_1, [x^2]_1, [x^3]_1, \dots, [x^{N-1}]_1\right\}, \\[8pt]
+\big\{[1]_1,[x]_1, [x^2]_1, [x^3]_1, \dots, [x^{N-1}]_1\big\}, \\
 \mathbb{G}_2 \text{ points: }
-\left\{[1]_2,[x]_2, [x^2]_2, [x^3]_2, \dots, [x^{M-1}]_2\right\}.
+\big\{[1]_2,[x]_2, [x^2]_2, [x^3]_2, \dots, [x^{M-1}]_2\big\}.
+\end{aligned}
 $$
 
 Here, $x \in \mathbb{F}$ is the combined secret of all the participants and is assumed to be unknown to anyone in the world. Further, the notation $[a]_1 := aG_1$ such that $G_1\in \mathbb{G}_1$ is generator for the first group $\mathbb{G}_1$.
@@ -46,8 +48,10 @@ In other words, the Lagrange basis polynomial $L_{n,i}(X)$ is $1$ on $\omega^i$ 
 Given the coefficent form of a polynomial, it is possible to convert it to the Lagrange form using the Discrete Fourier Transform (DFT) operation. Similarly, we can take an inverse DFT to convert the Lagrange form to its coefficient form.
 
 $$
-\{f_i\}_{i=0}^{n} \xrightarrow{\textsf{FFT}} \{f(\omega^i)\}_{i=0}^{n}, \\[8pt]
+\begin{aligned}
+    \{f_i\}_{i=0}^{n} \xrightarrow{\textsf{FFT}} \{f(\omega^i)\}_{i=0}^{n}, \\
 \{f(\omega^i)\}_{i=0}^{n} \xrightarrow{\textsf{iFFT}} \{f_i\}_{i=0}^{n}.
+\end{aligned}
 $$
 
 Note that this $\textsf{FFT}$ operation is defined on scalars in the field $\mathbb{F}$.
@@ -76,14 +80,14 @@ Recall that our monomial SRS (of size $n$) was of the form:
 
 $$
 \mathbb{G}_1 \text{ monomial points: }
-\left\{[1]_1,[x]_1, [x^2]_1, [x^3]_1, \dots, [x^{n-1}]_1\right\}.
+\big\{[1]_1,[x]_1, [x^2]_1, [x^3]_1, \dots, [x^{n-1}]_1\big\}.
 $$
 
 Note that we are interested only in the SRS of the first group $\mathbb{G}_1$. Lets say we want to convert this monomial SRS to the Lagrange SRS:
 
 $$
 \mathbb{G}_1 \text{ lagrange points: }
-\left\{[L_0(x)]_1,[L_1(x)]_1, [L_2(x)]_1, \dots, [L_{n-1}(x)]_1\right\}.
+\big\{[L_0(x)]_1,[L_1(x)]_1, [L_2(x)]_1, \dots, [L_{n-1}(x)]_1\big\}.
 $$
 
 without knowing the scalar $x\in \mathbb{F}$. We can do this by using EC-FFT functionality. Define a polynomial with coefficients $\{1, x, x^2, \dots, x^{n-1}\}$:
@@ -107,9 +111,11 @@ $$
 By the definition of $P(Y)$, we can write:
 
 $$
-P(Y) = \sum_{j=0}^{n-1} (x \cdot Y)^j \\[5pt]
-\implies P(\omega^{-i}) = \sum_{j=0}^{n-1} (\omega^{-i} \cdot x)^j =: n \cdot L_{n,i}(x) \\[5pt]
-\therefore \quad L_{n,i}(x) := \frac{1}{n} \cdot P(\omega^{-i}) \tag{1}
+\begin{aligned}
+P(Y) &= \sum_{j=0}^{n-1} (x \cdot Y)^j \\
+\implies P(\omega^{-i}) &= \sum_{j=0}^{n-1} (\omega^{-i} \cdot x)^j =: n \cdot L_{n,i}(x) \\
+\therefore \quad L_{n,i}(x) &:= \frac{1}{n} \cdot P(\omega^{-i}) \qquad \text{(1)}
+\end{aligned}
 $$
 
 Therefore, we can compute the Lagrange SRS from the monomial SRS by first taking the EC-FFT on the monomial SRS and applying the transform shown in equation $(1)$.
