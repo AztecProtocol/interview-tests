@@ -121,14 +121,17 @@ $$
 Therefore, we can compute the Lagrange SRS from the monomial SRS by first taking the EC-FFT on the monomial SRS and applying the transform shown in equation $(1)$.
 
 1. Given the monomial SRS, take its EC-FFT;
-   $$
+
+$$
    \Big([1]_1, [x]_1, [x^2]_1, \dots, [x^{n-1}]_1\Big)
    \xrightarrow{\textsf{ec-FFT}}
    \Big([P(\omega^0)]_1, [P(\omega^1)]_1, [P(\omega^2)]_1, \dots, [P(\omega^{n-1})]_1\Big)
-   $$
+$$
+
 2. Apply the transformation shown in equation $(1)$:
-   $$
+
+$$
    [L_{n,i}(x)]_1 := \frac{1}{n} \cdot [P(\omega^{-i})]_1 \quad \forall i \in [0, n)
-   $$
+$$
 
 As a part of this exercise, you also have to implement the function `convert_srs` that takes in a `monomial_srs` and converts it to a `lagrange_srs` for a given size as explained above.
