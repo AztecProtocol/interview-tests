@@ -90,7 +90,7 @@ $$
 \big([L_0(x)]_1,[L_1(x)]_1, [L_2(x)]_1, \dots, [L_{n-1}(x)]_1\big).
 $$
 
-without knowing the scalar $x\in \mathbb{F}$. We can do this by using EC-FFT functionality. Define a polynomial with coefficients $\{1, x, x^2, \dots, x^{n-1}\}$:
+without knowing the scalar $x\in \mathbb{F}$. We can do this by using EC-FFT functionality. For that, lets Define a polynomial with coefficients $\{1, x, x^2, \dots, x^{n-1}\}$:
 
 $$
 P(Y) := 1 + xY + x^2Y^2 + \dots + x^{n-1}Y^{n-1}.
@@ -120,4 +120,15 @@ $$
 
 Therefore, we can compute the Lagrange SRS from the monomial SRS by first taking the EC-FFT on the monomial SRS and applying the transform shown in equation $(1)$.
 
-As a part of this exercise, you will also implement the function `convert_srs` that takes in a `monomial_srs` and converts it to a `lagrange_srs` for a given size.
+1. Given the monomial SRS, take its EC-FFT;
+   $$
+   \Big([1]_1, [x]_1, [x^2]_1, \dots, [x^{n-1}]_1\Big)
+   \xrightarrow{\textsf{ec-FFT}}
+   \Big([P(\omega^0)]_1, [P(\omega^1)]_1, [P(\omega^2)]_1, \dots, [P(\omega^{n-1})]_1\Big)
+   $$
+2. Apply the transformation shown in equation $(1)$:
+   $$
+   [L_{n,i}(x)]_1 := \frac{1}{n} \cdot [P(\omega^{-i})]_1 \quad \forall i \in [0, n)
+   $$
+
+As a part of this exercise, you also have to implement the function `convert_srs` that takes in a `monomial_srs` and converts it to a `lagrange_srs` for a given size as explained above.
