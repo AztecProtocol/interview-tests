@@ -107,15 +107,13 @@ TEST(ec_fft, test_compare_iffts)
     }
 }
 
-TEST(ec_fft, test_srs)
+TEST(ec_fft, test_convert_srs)
 {
-    constexpr size_t n = 256;
+    constexpr size_t n = 512;
     std::vector<g1::element> monomial_points;
     std::vector<g1::element> lagrange_points;
     std::vector<fr> poly_monomial;
     std::vector<fr> poly_lagrange;
-    std::vector<fr> srs_poly_monomial;
-    std::vector<fr> srs_poly_lagrange;
 
     const fr x = fr::random_element();
     fr multiplicand = 1;
@@ -129,60 +127,31 @@ TEST(ec_fft, test_srs)
         g1::element monomial_term = g1::one * multiplicand;
         monomial_points.push_back(monomial_term);
         lagrange_points.push_back(monomial_term);
-        srs_poly_monomial.push_back(multiplicand);
-        srs_poly_lagrange.push_back(multiplicand);
         multiplicand *= x;
     }
 
     auto domain = evaluation_domain(n);
     domain.compute_lookup_table();
 
-    // Do EC FFT to get Lagrange SRS (shifting yet to be done)
-    waffle::g1_fft::ec_fft(&lagrange_points[0], domain);
-    polynomial_arithmetic::fft(&poly_lagrange[0], domain);
-    polynomial_arithmetic::fft(&srs_poly_lagrange[0], domain);
+    std::vector<g1::affine_element> lagrange_srs;
+    std::vector<g1::affine_element> monomial_srs;
+    lagrange_srs.resize(2 * n);
+    monomial_srs.resize(2 * n);
 
-    // Check evals of SRS
-    multiplicand = 1;
-    for (size_t i = 0; i < n; i++) {
-        fr scalar = srs_poly_lagrange[i];
-        g1::element expected = g1::one * scalar;
-        EXPECT_EQ(expected.normalize(), lagrange_points[i].normalize());
-
-        g1::element expected_monomial = g1::one * multiplicand;
-        EXPECT_EQ(expected_monomial.normalize(), monomial_points[i].normalize());
-        multiplicand *= x;
-    }
-
-    // Check scalar eval of polynomial
-    fr monomial_sum = 0;
-    fr lagrange_sum = 0;
-    size_t n_by_2 = (n >> 1);
-    for (size_t i = 0; i < n; i++) {
-        monomial_sum += poly_monomial[i] * srs_poly_monomial[i];
-        if (i == 0 || i == n_by_2) {
-            lagrange_sum += poly_lagrange[i] * srs_poly_lagrange[i] * domain.domain_inverse;
-        } else {
-            lagrange_sum += poly_lagrange[i] * srs_poly_lagrange[n - i] * domain.domain_inverse;
-        }
-    }
-    EXPECT_EQ(monomial_sum, lagrange_sum);
-
-    g1::affine_element lagrange_srs[2 * n];
-    g1::affine_element monomial_srs[2 * n];
+    // Copy over the monomial points in monomial_srs
     for (size_t i = 0; i < n; i++) {
         monomial_srs[i] = g1::affine_element(monomial_points[i]);
-        if (i == 0 || i == n_by_2) {
-            lagrange_srs[i] = g1::affine_element(lagrange_points[i] * domain.domain_inverse);
-        } else {
-            lagrange_srs[i] = g1::affine_element(lagrange_points[n - i] * domain.domain_inverse);
-        }
     }
+
+    // Convert from monomial to lagrange srs
+    waffle::g1_fft::convert_srs(&monomial_srs[0], &lagrange_srs[0], domain);
+    polynomial_arithmetic::fft(&poly_lagrange[0], domain);
 
     scalar_multiplication::pippenger_runtime_state state(n);
     scalar_multiplication::generate_pippenger_point_table(&monomial_srs[0], &monomial_srs[0], n);
     scalar_multiplication::generate_pippenger_point_table(&lagrange_srs[0], &lagrange_srs[0], n);
 
+    // Check <monomial_form , monomial_srs> == <lagrange_form , lagrange_srs>
     g1::element expected = scalar_multiplication::pippenger(&poly_monomial[0], &monomial_srs[0], n, state);
     g1::element result = scalar_multiplication::pippenger(&poly_lagrange[0], &lagrange_srs[0], n, state);
     expected = expected.normalize();

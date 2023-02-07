@@ -73,5 +73,28 @@ void ec_ifft(g1::element* g1_elements, const evaluation_domain& domain)
     }
 }
 
+void convert_srs(g1::affine_element* monomial_srs, g1::affine_element* lagrange_srs, const evaluation_domain& domain)
+{
+    const size_t n = domain.size;
+    is_power_of_two(n);
+    std::vector<g1::element> monomial_srs_jac;
+    for (size_t i = 0; i < n; i++) {
+        monomial_srs_jac.push_back(monomial_srs[i]);
+    }
+
+    // Compute [ω⁰], [ω¹], [ω²], ..., [ωⁿ⁻¹] using ec-fft
+    ec_fft(&monomial_srs_jac[0], domain);
+
+    // Compute Lagrange srs from the result of the ec-fft
+    const size_t n_by_2 = (n >> 1);
+    for (size_t i = 0; i < n; i++) {
+        if (i == 0 || i == n_by_2) {
+            lagrange_srs[i] = g1::affine_element(monomial_srs_jac[i] * domain.domain_inverse);
+        } else {
+            lagrange_srs[i] = g1::affine_element(monomial_srs_jac[n - i] * domain.domain_inverse);
+        }
+    }
+}
+
 } // namespace g1_fft
 } // namespace waffle

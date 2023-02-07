@@ -14,5 +14,7 @@ void ec_fft(g1::element* g1_elements, const evaluation_domain& domain);
 
 void ec_ifft(g1::element* g1_elements, const evaluation_domain& domain);
 
+void convert_srs(g1::affine_element* monomial_srs, g1::affine_element* lagrange_srs, const evaluation_domain& domain);
+
 } // namespace g1_fft
 } // namespace waffle
