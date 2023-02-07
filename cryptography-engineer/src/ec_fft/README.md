@@ -9,9 +9,9 @@ Universal zk-SNARKs like PlonK need to run a one-time trusted setup ceremony to 
 $$
 \begin{aligned}
 \mathbb{G}_1 \text{ points: }
-\big\{[1]_1,[x]_1, [x^2]_1, [x^3]_1, \dots, [x^{N-1}]_1\big\}, \\
+\big([1]_1,[x]_1, [x^2]_1, [x^3]_1, \dots, [x^{N-1}]_1\big), \\
 \mathbb{G}_2 \text{ points: }
-\big\{[1]_2,[x]_2, [x^2]_2, [x^3]_2, \dots, [x^{M-1}]_2\big\}.
+\big([1]_2,[x]_2, [x^2]_2, [x^3]_2, \dots, [x^{M-1}]_2\big).
 \end{aligned}
 $$
 
@@ -80,14 +80,14 @@ Recall that our monomial SRS (of size $n$) was of the form:
 
 $$
 \mathbb{G}_1 \text{ monomial points: }
-\big\{[1]_1,[x]_1, [x^2]_1, [x^3]_1, \dots, [x^{n-1}]_1\big\}.
+\big([1]_1,[x]_1, [x^2]_1, [x^3]_1, \dots, [x^{n-1}]_1\big).
 $$
 
 Note that we are interested only in the SRS of the first group $\mathbb{G}_1$. Lets say we want to convert this monomial SRS to the Lagrange SRS:
 
 $$
 \mathbb{G}_1 \text{ lagrange points: }
-\big\{[L_0(x)]_1,[L_1(x)]_1, [L_2(x)]_1, \dots, [L_{n-1}(x)]_1\big\}.
+\big([L_0(x)]_1,[L_1(x)]_1, [L_2(x)]_1, \dots, [L_{n-1}(x)]_1\big).
 $$
 
 without knowing the scalar $x\in \mathbb{F}$. We can do this by using EC-FFT functionality. Define a polynomial with coefficients $\{1, x, x^2, \dots, x^{n-1}\}$:
