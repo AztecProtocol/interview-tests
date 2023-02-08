@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+# TODO: need to pull in Barretenberg?
+
 # Clean.
 rm -rf ./build
 rm -rf ./build-wasm

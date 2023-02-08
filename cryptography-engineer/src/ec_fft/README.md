@@ -4,18 +4,16 @@ Hi there! Welcome to the `ec_fft` test that you are about to take. We will guide
 
 #### Monomial Reference String
 
-Universal zk-SNARKs like PlonK need to run a one-time trusted setup ceremony to generate a Structured Reference String (SRS). Any number of participants can participate in this ceremony but only _one_ of all the participants need to be _honest_. As a part of this ceremony, each participant contributes to the setup with their own _secret_ which they are free to choose. Even if one of the participants generates this secret randomly and destroy it successfully, the setup ceremony is considered to be successful. The output of the setup ceremony is a structure reference string of the form:
+Universal zk-SNARKs like PlonK need to run a one-time trusted setup ceremony to generate a Structured Reference String (SRS). Any number of participants can participate in this ceremony but only _one_ of all the participants needs to be _honest_. As a part of this ceremony, each participant contributes to the setup with their own _secret_ which they are free to choose. If even one of the participants generates this secret randomly and destroys it successfully, the setup ceremony is considered to be successful. Fur our purposes, the output of the setup ceremony is a structure reference string of the form:
 
 $$
 \begin{aligned}
 \mathbb{G}_1 \text{ points: }
 \big([1]_1,[x]_1, [x^2]_1, [x^3]_1, \dots, [x^{N-1}]_1\big), \\
-\mathbb{G}_2 \text{ points: }
-\big([1]_2,[x]_2, [x^2]_2, [x^3]_2, \dots, [x^{M-1}]_2\big).
 \end{aligned}
 $$
 
-Here, $x \in \mathbb{F}$ is the combined secret of all the participants and is assumed to be unknown to anyone in the world. Further, the notation $[a]_1 := aG_1$ such that $G_1\in \mathbb{G}_1$ is generator for the first group $\mathbb{G}_1$.
+Here, $\mathbb{G}_1$ is a cyclic group, $\mathbb{F}$ is a finite field, and the order of $\mathbb{G}_1$ is the same as the order of $\mathbb{F}$. The element  $x \in \mathbb{F}$ is the combined secret of all the participants and is assumed to be unknown to anyone in the world. Further, we define $[a]_1 := aG_1$, where $G_1\in \mathbb{G}_1$ is a fixed generator $\mathbb{G}_1$.
 
 The monomial reference string is used to commit to polynomials in their coefficient/monomial form. For example, given a polynomial $f(X) = f_0 + f_1X + f_2X^2 + \dots + f_{n-1}X^{n-1}$ for $n < N$, we can compute its commitment as:
 
@@ -41,11 +39,11 @@ L_{n,i}(\omega^j) =
 \end{cases}.
 $$
 
-In other words, the Lagrange basis polynomial $L_{n,i}(X)$ is $1$ on $\omega^i$ and $0$ on the other roots $\{\omega^j\}_{j \neq i}$. It is sometimes useful to work with the Lagrange form of a polynomial than its coefficient form.
+In other words, the Lagrange basis polynomial $L_{n,i}(X)$ is $1$ on $\omega^i$ and $0$ on the other roots $\{\omega^j\}_{j \neq i}$. The Lagrange form of a polynomial is sometimes more useful than the monomial form.
 
 #### Fast Fourier Transform
 
-Given the coefficent form of a polynomial, it is possible to convert it to the Lagrange form using the Discrete Fourier Transform (DFT) operation. Similarly, we can take an inverse DFT to convert the Lagrange form to its coefficient form.
+Given the coefficent form of a polynomial, it is possible to convert it to the Lagrange form using the Fast Fourier Transform (FFT) operation. Similarly, we can take an inverse FFT to convert the Lagrange form to its coefficient form.
 
 $$
 \begin{aligned}
@@ -83,7 +81,7 @@ $$
 \big([1]_1,[x]_1, [x^2]_1, [x^3]_1, \dots, [x^{n-1}]_1\big).
 $$
 
-Note that we are interested only in the SRS of the first group $\mathbb{G}_1$. Lets say we want to convert this monomial SRS to the Lagrange SRS:
+Let's say we want to convert this monomial SRS to the Lagrange SRS:
 
 $$
 \mathbb{G}_1 \text{ lagrange points: }
