@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# Update the submodule
+git submodule update init
+
 # Clean.
 rm -rf ./build
 rm -rf ./build-wasm
