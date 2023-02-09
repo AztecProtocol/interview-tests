@@ -1,0 +1,4 @@
+[submodule "cryptography-engineer/bb"]
+	path = cryptography-engineer/barretenberg
+	url = https://github.com/AztecProtocol/barretenberg
+	branch = sb/defi-bridge-project
