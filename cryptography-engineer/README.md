@@ -9,7 +9,7 @@ Welcome to Aztec's cryptography tests as a part of your interview process. This 
 This module contains the following exercises:
 
 1. [Indexed Merkle Tree](./src/indexed_merkle_tree/README.md)
-2.
+2. [EC-FFT](./src/ec_fft/README.md)
 
 Since these exercises use our in-house cryptography library barretenberg in the backend, you need to run the following commands to get started after you have cloned this repository. Please _do not_ fork the original repository, instead clone it and push it to your private repository.
 

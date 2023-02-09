@@ -2,6 +2,7 @@
 set -e
 
 # Update the submodule
+git submodule init
 git submodule update --init --recursive
 
 # Clean.
