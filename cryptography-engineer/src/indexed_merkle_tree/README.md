@@ -16,6 +16,8 @@ $$
 
 where $i_{\textsf{next}}$ is the index of the leaf with the next higher value $v_{\textsf{next}} > v$. By design, we assume that there are no leaves in the tree with a value between the range $(v, v_{\textsf{next}})$. Let us look at a toy example of the state transitions in an indexed Merkle tree of depth 3.
 
+[Note: Please check out [this](https://hackmd.io/@suyash67/ByXqvJI12) hackmd for the images, they're missing from the dependencies.]
+
 1. Initial state
    ![first](../../dependencies/images/0.png)
 2. Add a new value $v=30$
