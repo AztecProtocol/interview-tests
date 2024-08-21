@@ -29,22 +29,39 @@ export class MerkleTree {
     }
 
     // Implement.
+    if (!root) {
+      console.log('constructor');
+      let hash = this.hasher.hash(Buffer.alloc(LEAF_BYTES));
+      console.log('hash', hash);
+
+      for (let i = 0; i < depth; i++) {
+        const parent = this.hasher.compress(hash, hash);
+        this.db.put(parent, Buffer.concat([hash, hash]));
+        hash = parent;
+      }
+
+      console.log('hash2x', hash);
+      this.root = hash;
+    } else {
+      this.root = root;
+    }
   }
 
   /**
    * Constructs or restores a new MerkleTree instance with the given `name` and `depth`.
    * The `db` contains the tree data.
    */
+
   static async new(db: LevelUp, name: string, depth = MAX_DEPTH) {
-    const meta: Buffer = await db.get(Buffer.from(name)).catch(() => {});
-    if (meta) {
-      const root = meta.slice(0, 32);
-      const depth = meta.readUInt32LE(32);
-      return new MerkleTree(db, name, depth, root);
-    } else {
-      const tree = new MerkleTree(db, name, depth);
-      await tree.writeMetaData();
-      return tree;
+    try {
+      const metadata = await db.get(Buffer.from(name));
+      const rootHash = metadata.slice(0, 32);
+      const savedDepth = metadata.readUInt32LE(32);
+      return new MerkleTree(db, name, savedDepth, rootHash);
+    } catch (error) {
+      const newTree = new MerkleTree(db, name, depth);
+      await newTree.writeMetaData();
+      return newTree;
     }
   }
 
@@ -63,24 +80,57 @@ export class MerkleTree {
     return this.root;
   }
 
-  /**
-   * Returns the hash path for `index`.
-   * e.g. To return the HashPath for index 2, return the nodes marked `*` at each layer.
-   *     d0:                                            [ root ]
-   *     d1:                      [*]                                               [*]
-   *     d2:         [*]                      [*]                       [ ]                     [ ]
-   *     d3:   [ ]         [ ]          [*]         [*]           [ ]         [ ]          [ ]        [ ]
-   */
   async getHashPath(index: number) {
-    // Implement.
-    return new HashPath();
+    let currentNodes = (await this.db.get(this.root)) as Buffer;
+    const hashPath = new HashPath();
+
+    for (let i = this.depth - 1; i >= 0; i--) {
+      const [leftNode, rightNode] = [currentNodes.slice(0, 32), currentNodes.slice(32, 64)];
+      hashPath.data[i] = [leftNode, rightNode];
+
+      if (i !== 0) {
+        const nextNode = this.isRight(index, this.depth - 1 - i) ? rightNode : leftNode;
+        currentNodes = await this.db.get(nextNode);
+      }
+    }
+
+    return hashPath;
   }
 
-  /**
-   * Updates the tree with `value` at `index`. Returns the new tree root.
-   */
   async updateElement(index: number, value: Buffer) {
-    // Implement.
+    const batch = this.db.batch();
+
+    const updateRecursively = async (parent: Buffer, currentDepth: number): Promise<Buffer> => {
+      if (currentDepth === this.depth) {
+        return this.hasher.hash(value);
+      }
+
+      const nodes = (await this.db.get(parent)) as Buffer;
+      let [leftNode, rightNode] = [nodes.slice(0, 32), nodes.slice(32, 64)];
+      const isRight = this.isRight(index, currentDepth);
+      const updatedNode = await updateRecursively(isRight ? rightNode : leftNode, currentDepth + 1);
+
+      if (isRight) {
+        rightNode = updatedNode;
+      } else {
+        leftNode = updatedNode;
+      }
+
+      const newParent = this.hasher.compress(leftNode, rightNode);
+      batch.put(newParent, Buffer.concat([leftNode, rightNode]));
+
+      return newParent;
+    };
+
+    this.root = await updateRecursively(this.root, 0);
+    await batch.write();
+    await this.writeMetaData();
+
     return this.root;
+  }
+
+  isRight(index: number, currentDepth: number) {
+    const bitPosition = this.depth - currentDepth - 1;
+    return (index >> bitPosition) & 1;
   }
 }
