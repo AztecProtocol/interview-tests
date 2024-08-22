@@ -28,20 +28,22 @@ export class MerkleTree {
       throw Error('Bad depth');
     }
 
-    // Implement.
+    // Minimum 2 depth required..
     if (!root) {
       console.log('constructor');
-      let hash = this.hasher.hash(Buffer.alloc(LEAF_BYTES));
-      console.log('hash', hash);
+      let emptyroothash = this.hasher.hash(Buffer.alloc(LEAF_BYTES));
+      //console.log('hash', hash);
 
+      //should have correct empty tree root for depth 32 thirty two
+      //here for first test pass.
       for (let i = 0; i < depth; i++) {
-        const parent = this.hasher.compress(hash, hash);
-        this.db.put(parent, Buffer.concat([hash, hash]));
-        hash = parent;
+        const parent = this.hasher.compress(emptyroothash, emptyroothash);
+        this.db.put(parent, this.hasher.concat([emptyroothash, emptyroothash]));
+        emptyroothash = parent;
       }
 
-      console.log('hash2x', hash);
-      this.root = hash;
+      //console.log('hash2x', hash);
+      this.root = emptyroothash;
     } else {
       this.root = root;
     }
@@ -117,7 +119,7 @@ export class MerkleTree {
       }
 
       const newParent = this.hasher.compress(leftNode, rightNode);
-      batch.put(newParent, Buffer.concat([leftNode, rightNode]));
+      batch.put(newParent, this.hasher.concat([leftNode, rightNode]));
 
       return newParent;
     };

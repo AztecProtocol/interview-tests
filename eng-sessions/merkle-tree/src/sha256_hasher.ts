@@ -14,6 +14,10 @@ export class Sha256Hasher {
       .digest();
   }
 
+  concat(buffers: Buffer[]): Buffer {
+    return Buffer.concat(buffers);
+  }
+
   /**
    * Given `data` which is to be become an entry in the tree, return a digest that represents that data.
    */
