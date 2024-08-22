@@ -85,6 +85,7 @@ export class MerkleTree {
   async getHashPath(index: number) {
     let currentNodes = (await this.db.get(this.root)) as Buffer;
     const hashPath = new HashPath();
+    console.log('currentNodes', currentNodes);
 
     for (let i = this.depth - 1; i >= 0; i--) {
       const [leftNode, rightNode] = [currentNodes.slice(0, 32), currentNodes.slice(32, 64)];
@@ -131,8 +132,9 @@ export class MerkleTree {
     return this.root;
   }
 
-  isRight(index: number, currentDepth: number) {
+  isRight(index: number, currentDepth: number): number {
     const bitPosition = this.depth - currentDepth - 1;
-    return (index >> bitPosition) & 1;
+    const mask = Math.pow(2, bitPosition);
+    return index % (2 * mask) >= mask ? 1 : 0;
   }
 }
