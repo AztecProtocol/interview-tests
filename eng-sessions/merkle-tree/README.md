@@ -34,6 +34,8 @@ yarn test
 yarn test --watch
 ```
 
+![Kapak Resmi](https://github.com/RustDili/Rust-Ogrenmek/blob/master/resimler/Rust-ogrenmek.jpg)
+
 # Important Resources
 
 - https://hackmd.io/@kullervo/commitmentVector

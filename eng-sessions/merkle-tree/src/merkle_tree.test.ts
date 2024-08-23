@@ -92,6 +92,10 @@ describe('merkle_tree', () => {
     console.log('a', xexpectedforindexone);
     console.log('b', await treee.generateProof(1));
 
+    let xexpectedforindexonexx = new HashPath([[e03], [e10]]);
+    console.log('xxx', await treee.generateProof(2));
+    console.log('jasgg', xexpectedforindexonexx);
+
     expect(await treee.generateProof(0)).toEqual(xexpected);
   });
 
