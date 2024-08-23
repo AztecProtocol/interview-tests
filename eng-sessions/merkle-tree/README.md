@@ -34,9 +34,11 @@ yarn test
 yarn test --watch
 ```
 
-![Kapak Resmi](https://github.com/RustDili/Rust-Ogrenmek/blob/master/resimler/Rust-ogrenmek.jpg)
+![Merkle Tree](https://github.com/omgbbqhaxx/interview-tests/blob/master/eng-sessions/merkle-tree/src/proof.png)
 
 # Important Resources
 
 - https://hackmd.io/@kullervo/commitmentVector
 - https://medium.com/@chaisomsri96/statelessness-series-part4-exploring-the-verkle-trie-structure-d97a8c85363e
+- https://docs.aztec.network/protocol-specs/state/tree-implementations
+- https://hackmd.io/@aztec-network/ryJ8wxfKK
