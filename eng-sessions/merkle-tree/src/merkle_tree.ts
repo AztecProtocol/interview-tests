@@ -84,16 +84,48 @@ export class MerkleTree {
 
   async getHashPath(index: number) {
     let currentNodes = (await this.db.get(this.root)) as Buffer;
-    const hashPath = new HashPath();
-    console.log('currentNodes', currentNodes);
+    let hashPath = new HashPath();
 
     for (let i = this.depth - 1; i >= 0; i--) {
-      const [leftNode, rightNode] = [currentNodes.slice(0, 32), currentNodes.slice(32, 64)];
+      let [leftNode, rightNode] = [currentNodes.slice(0, 32), currentNodes.slice(32, 64)];
       hashPath.data[i] = [leftNode, rightNode];
 
       if (i !== 0) {
-        const nextNode = this.isRight(index, this.depth - 1 - i) ? rightNode : leftNode;
+        let nextNode = this.isRight(index, this.depth - 1 - i) ? rightNode : leftNode;
         currentNodes = await this.db.get(nextNode);
+      }
+    }
+
+    return hashPath;
+  }
+
+  async generateProof(index: number) {
+    let currentNodes = (await this.db.get(this.root)) as Buffer;
+    let hashPath = new HashPath();
+
+    for (let i = this.depth - 1; i >= 0; i--) {
+      let [leftNode, rightNode] = [currentNodes.slice(0, 32), currentNodes.slice(32, 64)];
+
+      console.log('i is here', i);
+
+      if (i !== 0) {
+        let nextNode = this.isRight(index, this.depth - 1 - i) ? rightNode : leftNode;
+        if (this.isRight(index, this.depth - 1 - i)) {
+          hashPath.data[i] = [leftNode];
+        } else {
+          hashPath.data[i] = [rightNode];
+        }
+        currentNodes = await this.db.get(nextNode);
+      } else {
+        //console.log('why im here', i);
+        //console.log('why im here', leftNode);
+        //console.log('why im here', rightNode);
+        //console.log('is right', this.isRight(index, this.depth - 1 - i));
+        if (this.isRight(index, this.depth - 1 - i)) {
+          hashPath.data[i] = [leftNode];
+        } else {
+          hashPath.data[i] = [rightNode];
+        }
       }
     }
 
@@ -132,9 +164,8 @@ export class MerkleTree {
     return this.root;
   }
 
-  isRight(index: number, currentDepth: number): number {
-    const bitPosition = this.depth - currentDepth - 1;
-    const mask = Math.pow(2, bitPosition);
-    return index % (2 * mask) >= mask ? 1 : 0;
+  isRight(index: number, currentDepth: number) {
+    let bitPosition = this.depth - currentDepth - 1;
+    return (index >> bitPosition) & 1;
   }
 }

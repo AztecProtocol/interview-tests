@@ -33,3 +33,8 @@ yarn test
 # To run tests, watching for changes.
 yarn test --watch
 ```
+
+# Important Resources
+
+- https://hackmd.io/@kullervo/commitmentVector
+- https://medium.com/@chaisomsri96/statelessness-series-part4-exploring-the-verkle-trie-structure-d97a8c85363e

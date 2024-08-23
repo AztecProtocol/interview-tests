@@ -18,6 +18,7 @@ describe('merkle_tree', () => {
     const db = levelup(memdown());
     const tree = await MerkleTree.new(db, 'test', 32);
     const root = tree.getRoot();
+
     expect(root.toString('hex')).toEqual('1c9a7e5ff1cf48b4ad1582d3f4e4a1004f3b20d8c5a2b71387a4254ad933ebc5');
   });
 
@@ -44,8 +45,12 @@ describe('merkle_tree', () => {
       [e10, e11],
     ]);
 
+    console.log('expected', expected);
+
     expect(await tree.getHashPath(0)).toEqual(expected);
     expect(await tree.getHashPath(1)).toEqual(expected);
+
+    console.log('qq', await tree.getHashPath(0));
 
     expected = new HashPath([
       [e02, e03],
@@ -57,6 +62,37 @@ describe('merkle_tree', () => {
     expect(tree.getRoot()).toEqual(root);
 
     expect(root).toEqual(Buffer.from('e645e6b5445483a358c4d15c1923c616a0e6884906b05c196d341ece93b2de42', 'hex'));
+  });
+
+  it('we need generate a proof from index.', async () => {
+    const db = levelup(memdown());
+
+    const hasher = new Sha256Hasher();
+    const e00 = hasher.hash(values[0]);
+    const e01 = hasher.hash(values[1]);
+    const e02 = hasher.hash(values[2]);
+    const e03 = hasher.hash(values[3]);
+    const e10 = hasher.compress(e00, e01);
+    const e11 = hasher.compress(e02, e03);
+    const root = hasher.compress(e10, e11);
+
+    const treee = await MerkleTree.new(db, 'test', 2);
+
+    for (let i = 0; i < 4; ++i) {
+      await treee.updateElement(i, values[i]);
+    }
+
+    let xexpected = new HashPath([[e01], [e11]]);
+
+    let xexpectedforindexone = new HashPath([[e00], [e11]]);
+
+    console.log('a', xexpected);
+    console.log('b', await treee.generateProof(0));
+
+    console.log('a', xexpectedforindexone);
+    console.log('b', await treee.generateProof(1));
+
+    expect(await treee.generateProof(0)).toEqual(xexpected);
   });
 
   it('should be able to restore from previous data', async () => {
