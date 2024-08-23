@@ -82,21 +82,19 @@ describe('merkle_tree', () => {
       await treee.updateElement(i, values[i]);
     }
 
-    let xexpected = new HashPath([[e01], [e11]]);
-
-    let xexpectedforindexone = new HashPath([[e00], [e11]]);
-
-    console.log('a', xexpected);
+    let indexzeroexpectation = new HashPath([[e01], [e11]]);
+    console.log('a', indexzeroexpectation);
     console.log('b', await treee.generateProof(0));
 
-    console.log('a', xexpectedforindexone);
+    let indexoneexpectation = new HashPath([[e00], [e11]]);
+    console.log('a', indexoneexpectation);
     console.log('b', await treee.generateProof(1));
 
-    let xexpectedforindexonexx = new HashPath([[e03], [e10]]);
+    let indextwoexpectation = new HashPath([[e03], [e10]]);
     console.log('xxx', await treee.generateProof(2));
-    console.log('jasgg', xexpectedforindexonexx);
+    console.log('jasgg', indextwoexpectation);
 
-    expect(await treee.generateProof(0)).toEqual(xexpected);
+    expect(await treee.generateProof(0)).toEqual(indexzeroexpectation);
   });
 
   it('should be able to restore from previous data', async () => {

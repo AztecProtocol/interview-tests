@@ -34,6 +34,32 @@ yarn test
 yarn test --watch
 ```
 
+## generateProof function usagement.
+
+After cloning the repo:
+
+```bash
+let indexzeroexpectation = new HashPath([[e01], [e11]]);
+console.log('a', indexzeroexpectation);
+console.log('b', await treee.generateProof(0));
+
+let indexoneexpectation = new HashPath([[e00], [e11]]);
+console.log('a', indexoneexpectation);
+console.log('b', await treee.generateProof(1));
+
+let indextwoexpectation = new HashPath([[e03], [e10]]);
+console.log('xxx', await treee.generateProof(2));
+console.log('jasgg', indextwoexpectation);
+
+expect(await treee.generateProof(0)).toEqual(indexzeroexpectation);
+```
+
+You can verify from image for example why index 0 (e00) need e01 and e11 because with this two hash your reach root.
+
+for index 1 (e01) need e00 and e11 because with this two hash your reach root.
+
+for index 2 (e02) need e03 and e10 because with this two hash your reach root. at this point e11 changes as e10 because index 2 (e02) is the right at depth 2.
+
 ![Merkle Tree](https://github.com/omgbbqhaxx/interview-tests/blob/master/eng-sessions/merkle-tree/src/proof.png)
 
 # Important Resources
