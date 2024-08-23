@@ -36,20 +36,85 @@ yarn test --watch
 
 ## generateProof function usagement.
 
-After cloning the repo:
-
 ```bash
 let indexzeroexpectation = new HashPath([[e01], [e11]]);
 console.log('a', indexzeroexpectation);
 console.log('b', await treee.generateProof(0));
 
+HashPath {
+      data: [
+        [
+          <Buffer 16 ab ab 34 1f b7 f3 70 e2 7e 4d ad cf 81 76 6d d0 df d0 ae 64 46 94 77 bb 2c f6 61 49 38 b2 af>
+        ],
+        [
+          <Buffer 56 4a 42 6c 73 ba 2d ca 7b c3 67 df 3f 29 73 7e 94 8f ae c9 60 b8 d0 a1 5b 26 a5 0d 84 b3 15 67>
+        ]
+      ]
+    }
+
+HashPath {
+      data: [
+        [
+          <Buffer 16 ab ab 34 1f b7 f3 70 e2 7e 4d ad cf 81 76 6d d0 df d0 ae 64 46 94 77 bb 2c f6 61 49 38 b2 af>
+        ],
+        [
+          <Buffer 56 4a 42 6c 73 ba 2d ca 7b c3 67 df 3f 29 73 7e 94 8f ae c9 60 b8 d0 a1 5b 26 a5 0d 84 b3 15 67>
+        ]
+      ]
+    }
+
+
 let indexoneexpectation = new HashPath([[e00], [e11]]);
 console.log('a', indexoneexpectation);
 console.log('b', await treee.generateProof(1));
 
+HashPath {
+    data: [
+    [
+        <Buffer f5 a5 fd 42 d1 6a 20 30 27 98 ef 6e d3 09 97 9b 43 00 3d 23 20 d9 f0 e8 ea 98 31 a9 27 59 fb 4b>
+    ],
+    [
+        <Buffer 56 4a 42 6c 73 ba 2d ca 7b c3 67 df 3f 29 73 7e 94 8f ae c9 60 b8 d0 a1 5b 26 a5 0d 84 b3 15 67>
+    ]
+    ]
+}
+
+HashPath {
+    data: [
+    [
+        <Buffer f5 a5 fd 42 d1 6a 20 30 27 98 ef 6e d3 09 97 9b 43 00 3d 23 20 d9 f0 e8 ea 98 31 a9 27 59 fb 4b>
+    ],
+    [
+        <Buffer 56 4a 42 6c 73 ba 2d ca 7b c3 67 df 3f 29 73 7e 94 8f ae c9 60 b8 d0 a1 5b 26 a5 0d 84 b3 15 67>
+    ]
+    ]
+}
+
 let indextwoexpectation = new HashPath([[e03], [e10]]);
 console.log('xxx', await treee.generateProof(2));
 console.log('jasgg', indextwoexpectation);
+
+HashPath {
+    data: [
+    [
+        <Buffer e7 b4 bb 67 55 1d de 95 89 c1 55 3d fd a3 7a 94 2a 18 ca f1 84 f9 cc 16 29 d2 5c f5 c6 0b e4 16>
+    ],
+    [
+        <Buffer 0f b6 10 eb 85 69 bb 12 e0 76 87 ea 9d 70 25 e3 ef ae 87 0a f0 a0 9a 36 cd fb 22 2d ff 79 50 b3>
+    ]
+    ]
+}
+
+HashPath {
+    data: [
+    [
+        <Buffer e7 b4 bb 67 55 1d de 95 89 c1 55 3d fd a3 7a 94 2a 18 ca f1 84 f9 cc 16 29 d2 5c f5 c6 0b e4 16>
+    ],
+    [
+        <Buffer 0f b6 10 eb 85 69 bb 12 e0 76 87 ea 9d 70 25 e3 ef ae 87 0a f0 a0 9a 36 cd fb 22 2d ff 79 50 b3>
+    ]
+    ]
+}
 
 expect(await treee.generateProof(0)).toEqual(indexzeroexpectation);
 ```
