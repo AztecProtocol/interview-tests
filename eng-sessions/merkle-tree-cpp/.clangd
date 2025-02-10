@@ -1,0 +1,35 @@
+CompileFlags:
+  Remove: -fconstexpr-ops-limit=*
+  Add: [-std=c++20]
+---
+If:
+  PathMatch: [src/.*\.hpp, src/.*\.cpp, src/.*\.tcc]
+Diagnostics:
+  UnusedIncludes: None
+
+  # Static analysis configuration
+  ClangTidy:
+    Add:
+      - cert-*
+      - google-*
+      - readability-*
+      - bugprone-*
+      - misc-*
+      - performance-*
+    Remove:
+      - misc-const-correctness
+      - readability-magic-numbers
+      - readability-identifier-length
+      - bugprone-easily-swappable-parameters
+      - misc-non-private-member-variables-in-classes
+      - google-build-using-namespace
+      - readability-container-data-pointer
+      - modernize-use-bool-literals
+      - readability-function-cognitive-complexity
+      - google-explicit-constructor
+      - modernize-use-nodiscard
+
+---
+# Disable some checks for Google Test/Bench
+If:
+  PathMatch: [src/.*\.test\.cpp, src/.*\.bench\.cpp]
