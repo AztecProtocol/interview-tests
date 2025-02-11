@@ -28,4 +28,5 @@ After cloning the repo you may:
 ```bash
 ./run.sh
 ```
+OR
 - Compile and run main.cpp in a compiler configured for the C++20 standard.
