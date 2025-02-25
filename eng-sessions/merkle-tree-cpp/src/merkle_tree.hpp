@@ -53,7 +53,6 @@ class MerkleTree {
      */
     static MerkleTree create(MockDB& db, const std::string& name, uint32_t depth = MAX_DEPTH)
     {
-        // Implement.
         return MerkleTree(db, name, depth);
     }
 
@@ -62,7 +61,6 @@ class MerkleTree {
      */
     sha256_hash_t get_root() const
     {
-        // Implement.
         return root;
     }
 
